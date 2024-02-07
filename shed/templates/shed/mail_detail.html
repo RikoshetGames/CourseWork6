@@ -1,0 +1,69 @@
+{% extends 'shed/base.html' %}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Название:</td>
+                            <td>{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Тема сообщения:</td>
+                            <td>{{ object.message.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Кому:</td>
+                            <td>{{ clients }}</td>
+                        </tr>
+                        <tr>
+                            <td>Старт рассылки:</td>
+                            <td>{{ object.start_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Периодичность:</td>
+                            <td>{{ object.interval }}</td>
+                        </tr>
+                        <tr>
+                            <td>Завершение рассылки:</td>
+                            <td>{{ object.end_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Текущий статус:</td>
+                            <td>{{ object.status }}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        {% if perms.service.set_is_active %}
+                            <a href="{% url 'shed:mail_mod_edit' object.pk %}" type="button"
+                           class="btn btn-info">Редактировать</a>
+                        {% else %}
+
+                            <a href="{% url 'shed:mail_edit' object.pk %}" type="button"
+                               class="btn btn-info">Редактировать</a>
+                            <a href="{% url 'shed:mail_delete' object.pk %}" type="button"
+                               class="btn btn-danger">Удалить</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+
+                <div class="card-body">
+                    {% for log in logs %}
+                        <p>{{ log }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

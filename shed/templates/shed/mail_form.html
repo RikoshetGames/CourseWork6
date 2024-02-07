@@ -1,0 +1,32 @@
+{% extends 'shed/base.html' %}
+
+{% block content %}
+<div class="header mx-auto text-center">
+    <h5 class="display-4">{{ title }}</h5>
+</div>
+<div class="col-6">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.help_text %}
+                            <p class="help" id="{{ field.auto_id }}_helptext">
+                                {{ field.help_text|safe }}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                {% if object %}
+                <button type="submit" class="btn btn-info">Сохранить</button>
+                {% else %}
+                <button type="submit" class="btn btn-info">Создать</button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

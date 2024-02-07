@@ -1,0 +1,42 @@
+{% extends 'shed/base.html' %}
+{% block content %}
+<div class="header mx-auto text-center">
+    <h5 class="display-4">{{ title }}</h5>
+</div>
+<div class="col-12 mb-5">
+    <a class="btn btn-info" href="{% url 'shed:mail_add' %}">Создать рассылку</a>
+</div>
+<div class="col-12">
+    <div class="row">
+
+        {% for object in object_list %}
+            {% if user == object.owner or perms.service.view_mailing %}
+            <div class="col-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="my-0 font-weight-normal">Рассылка {{ object.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>с {{ object.start_date }} по {{ object.end_date }}</p>
+                        <p>с периодичностью {{ object.interval }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'shed:mail_view' object.pk %}" type="button"
+                               class="btn btn-sm btn-info">Подробнее</a>
+
+                        </div>
+                        <div class="card-footer">
+                            {% if object.is_active %}
+                            <p>Действующая</p>
+                            {% else %}
+                            <p>Отменена</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

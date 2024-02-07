@@ -1,0 +1,25 @@
+{% extends "shed/base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-info">
+                        {% if object %}
+                        Сохранить
+                        {% else %}
+                        Cоздать
+                        {% endif %}
+                    </button>
+                    <input type="button" class="btn btn-info" value="Назад" onclick="history.back()">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

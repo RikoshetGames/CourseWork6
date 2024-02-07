@@ -1,0 +1,26 @@
+{% extends 'shed/base.html' %}
+{% block content %}
+    <div class="header mx-auto text-center">
+        <h5 class="display-4">{{ title }}</h5>
+    </div>
+    <div class="col-12">
+        <div class="row mb-3">
+            {% for object in object_list %}
+                <div class="col-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="my-0 font-weight-normal mb-3">Пользователь:</h3>
+                            <h3 class="my-0 font-weight-normal mb-3">{{ object.email }}</h3>
+                            {% if not object.is_active %}
+                                <p>Заблокирован</p>
+                            {% else %}
+                                <p>Активный</p>
+                            {% endif %}
+                            <a class="p-2 btn btn-info" href="{% url 'users:edit' object.pk %}">Редактировать</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'shed/base.html' %}
+{% block content %}
+<div class="header mx-auto text-center">
+    <h5 class="display-4">{{ title }}</h5>
+</div>
+<div class="col-12 mb-5">
+    <a class="btn btn-info" href="{% url 'shed:client_add' %}">Добавить клиента</a>
+</div>
+<div class="col-12">
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="my-0 font-weight-normal">{{ object.full_name|title }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ object.email }}</p>
+                        {% if object.comment %}
+                            <p>{{ object.comment }}</p>
+                        {% endif %}
+
+                        <a href="{% url 'shed:client_edit' object.pk %}"
+                           class="btn btn-info">Редактировать</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
